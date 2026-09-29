@@ -3,172 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Demo Login</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive;
-            background-color: #0000ff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 300%;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill="%23ffff00" width="10" height="10"/><rect fill="%23ffff00" x="10" y="10" width="10" height="10"/></svg>');
-            animation: spinBg 32s linear infinite;
-            z-index: -1;
-            transform-origin: 50% 50%;
-        }
-
-        @keyframes spinBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .container {
-            background: #ffff99;
-            border: 5px solid;
-            border-color: #ffff00 #cccccc #cccccc #ffff00;
-            box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080, 3px 3px 5px #000000;
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 450px;
-            padding: 30px;
-            text-align: center;
+            max-width: 400px;
         }
-
+        
         h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            color: #0000ff;
-            text-shadow: 2px 2px 0 #ffff00;
-            letter-spacing: 2px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
         }
-
-        .header-decoration {
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
+        
         .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 20px;
         }
-
+        
         label {
             display: block;
-            font-size: 14px;
-            font-weight: bold;
-            color: #0000ff;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
         }
-
+        
         input {
             width: 100%;
-            padding: 10px;
-            border: 3px solid;
-            border-color: #ffffff #808080 #808080 #ffffff;
-            background: #ffffff;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: #000000;
-        }
-
-        input:focus {
-            outline: 2px solid #ff00ff;
-            outline-offset: 2px;
-        }
-
-        button {
-            width: 100%;
             padding: 12px;
-            background: #ff9900;
-            color: #000000;
-            border: 3px solid;
-            border-color: #ffff99 #404040 #404040 #ffff99;
-            font-family: 'Comic Sans MS', cursive;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button:active {
-            border-color: #404040 #ffff99 #ffff99 #404040;
-        }
-
-        .message {
-            margin-top: 15px;
-            padding: 10px;
-            border: 3px solid;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-size: 14px;
-            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        input.error-highlight {
+            border-color: #c33;
+            background-color: #fee;
+        }
+        
+        input.error-highlight:focus {
+            box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.1);
+        }
+        
+        .email-error-message {
+            color: #c33;
+            font-size: 12px;
+            margin-top: 5px;
             display: none;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
         }
-
-        .message.error {
-            background: #ff6666;
-            color: #ffffff;
-            border-color: #ff0000;
+        
+        .email-error-message.show {
+            display: block;
         }
-
-        .message.success {
-            background: #00cc00;
-            color: #ffffff;
-            border-color: #009900;
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
-
-        .demo-hint {
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-cancel:active {
+            transform: translateY(0);
+        }
+        
+        .message {
             margin-top: 20px;
             padding: 12px;
-            background: #ff99ff;
-            border: 2px dashed #ff00ff;
-            font-size: 12px;
-            color: #000000;
+            border-radius: 4px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 500;
+            display: none;
         }
-
-        .demo-hint strong {
-            color: #0000ff;
-            text-decoration: underline;
+        
+        .error {
+            background-color: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+            display: block;
         }
-
-        .blink {
-            animation: blink 0.7s infinite;
+        
+        .success {
+            background-color: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+            display: block;
         }
-
-        @keyframes blink {
-            0%, 49%, 100% { opacity: 1; }
-            50%, 99% { opacity: 0.3; }
+        
+        .demo-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #999;
+            text-align: center;
         }
-
-        @keyframes spinBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        
+        .demo-info strong {
+            color: #666;
         }
-
+        
         .modal {
             display: none;
             position: fixed;
@@ -176,158 +171,189 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
-
-        .modal.show {
+        
+        .modal.active {
             display: flex;
         }
-
+        
         .modal-content {
-            background: #ffff99;
-            border: 5px solid;
-            border-color: #ffff00 #cccccc #cccccc #ffff00;
-            box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080, 5px 5px 10px #000000;
-            padding: 25px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 400px;
-            width: 100%;
             text-align: center;
         }
-
-        .modal-header {
-            font-size: 28px;
-            font-weight: bold;
-            color: #0000ff;
+        
+        .modal-icon {
+            font-size: 48px;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 0 #ffff00;
         }
-
-        .modal-decoration {
+        
+        .modal-title {
             font-size: 20px;
-            margin: 10px 0;
-            letter-spacing: 2px;
-            color: #ff00ff;
-            font-weight: bold;
+            font-weight: 600;
+            color: #c33;
+            margin-bottom: 10px;
         }
-
+        
         .modal-message {
-            font-size: 16px;
-            color: #000000;
-            font-family: 'Comic Sans MS', cursive;
-            font-weight: bold;
-            margin: 20px 0;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
-
+        
         .modal-close {
-            background: #ff9900;
-            color: #000000;
-            border: 3px solid;
-            border-color: #ffff99 #404040 #404040 #ffff99;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
             padding: 12px 30px;
-            font-family: 'Comic Sans MS', cursive;
+            border-radius: 4px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .modal-close:active {
-            border-color: #404040 #ffff99 #ffff99 #404040;
+        
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-decoration">✧･ﾟ: *✧･ﾟ:* *:･ﾟ✧*:･ﾟ✧</div>
-        <h1>★ LOGIN ★</h1>
-        <div class="header-decoration blink">Welcome!</div>
+    <div class="login-container">
+        <h1>Login</h1>
+        
         <form id="loginForm">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" id="email" placeholder="Enter your email" required autocomplete="off">
+                <div class="email-error-message" id="emailErrorMsg">Please enter a valid email address</div>
             </div>
+            
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit">Log in</button>
-            <div class="message" id="message"></div>
-        </form>
-        <div class="demo-hint">
-            <strong>Demo credentials:</strong><br>
-            demo@example.com / password123
-        </div>
-    </div>
-
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <div class="modal-decoration">⭐ ✨ ⭐ ✨ ⭐</div>
-            <div class="modal-header">SUCCESS!</div>
-            <div class="modal-decoration">✨ ⭐ ✨ ⭐ ✨</div>
-            <div class="modal-message">
-                You have been logged in successfully!<br><br>
-                <span class="blink">Welcome back! 🌐</span>
+            
+            <div class="button-group">
+                <button type="submit" class="btn-login">Log in</button>
+                <button type="button" class="btn-cancel" onclick="cancelLogin()">Cancel</button>
             </div>
-            <button class="modal-close" onclick="closeModal()">OK!</button>
+        </form>
+        
+        <div id="message" class="message"></div>
+        
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-icon">⚠️</div>
+                <div class="modal-title">Login Failed</div>
+                <div class="modal-message" id="modalMessage"></div>
+                <button class="modal-close" onclick="closeModal()">Try Again</button>
+            </div>
+        </div>
+        
+        <div class="demo-info">
+            <p><strong>Demo Credentials:</strong></p>
+            <p>Email: demo@example.com</p>
+            <p>Password: password123</p>
         </div>
     </div>
-
+    
     <script>
         const form = document.getElementById('loginForm');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const messageDiv = document.getElementById('message');
-        const successModal = document.getElementById('successModal');
-
+        const errorModal = document.getElementById('errorModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const emailErrorMsg = document.getElementById('emailErrorMsg');
+        
+        let emailValidationTimeout;
+        
         // Demo credentials
-        const demoEmail = 'demo@example.com';
-        const demoPassword = 'password123';
-
-        function closeModal() {
-            successModal.classList.remove('show');
-            emailInput.value = '';
-            passwordInput.value = '';
+        const DEMO_EMAIL = 'demo@example.com';
+        const DEMO_PASSWORD = 'password123';
+        
+        // Email validation regex
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
-
-        form.addEventListener('submit', (e) => {
+        
+        // Real-time email validation with 1-second delay
+        emailInput.addEventListener('input', function() {
+            clearTimeout(emailValidationTimeout);
+            emailInput.classList.remove('error-highlight');
+            emailErrorMsg.classList.remove('show');
+            
+            if (emailInput.value.trim() === '') {
+                return;
+            }
+            
+            emailValidationTimeout = setTimeout(function() {
+                const email = emailInput.value.trim();
+                if (email && !isValidEmail(email)) {
+                    emailInput.classList.add('error-highlight');
+                    emailErrorMsg.classList.add('show');
+                }
+            }, 1000);
+        });
+        
+        // Clear error on focus
+        emailInput.addEventListener('focus', function() {
+            clearTimeout(emailValidationTimeout);
+            emailInput.classList.remove('error-highlight');
+            emailErrorMsg.classList.remove('show');
+        });
+        
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-
+            messageDiv.className = 'message';
+            
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
-
-            // Clear previous message
-            messageDiv.className = 'message';
-
-            // Check for empty fields
+            
+            // Validation: check for empty fields
             if (!email || !password) {
-                messageDiv.textContent = 'Please fill in all fields.';
-                messageDiv.classList.add('error');
+                modalMessage.textContent = 'Please fill in all fields.';
+                openModal();
                 return;
             }
-
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                messageDiv.textContent = 'Please enter a valid email address.';
-                messageDiv.classList.add('error');
-                return;
-            }
-
-            // Check against demo credentials
-            if (email === demoEmail && password === demoPassword) {
-                successModal.classList.add('show');
+            
+            // Authentication: check demo credentials
+            if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+                // Success: store email and redirect
+                sessionStorage.setItem('userEmail', email);
+                window.location.href = 'success.html';
             } else {
-                messageDiv.textContent = '✗ Invalid email or password.';
-                messageDiv.classList.add('error');
+                // Failed login: show popup
+                modalMessage.textContent = 'Invalid email or password. Please try again.';
+                openModal();
             }
         });
+        
+        function openModal() {
+            errorModal.classList.add('active');
+            emailInput.focus();
+        }
+        
+        function closeModal() {
+            errorModal.classList.remove('active');
+            emailInput.focus();
+        }
+        
+        function cancelLogin() {
+            form.reset();
+            closeModal();
+        }
     </script>
 </body>
 </html>
